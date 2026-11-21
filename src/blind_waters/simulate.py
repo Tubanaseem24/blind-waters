@@ -1,6 +1,6 @@
 
-from placer import Placer
-from agents import RandomAgent, HuntTargetAgent
+from blind_waters.placer import Placer
+from blind_waters.agents import RandomAgent, HuntTargetAgent
 
 
 def play_game(agent, layout, board_size=10):
@@ -18,6 +18,9 @@ def play_game(agent, layout, board_size=10):
             state[r][c] = "hit"
             i = ship_of[(r, c)]
             hits_left[i] -= 1
+            if hits_left[i] == 0:
+                for sr, sc in layout[i]:
+                    state[sr][sc] = "sunk"
             agent.observe({"cell": (r, c), "hit": True, "sunk": hits_left[i] == 0})
         else:
             state[r][c] = "miss"
