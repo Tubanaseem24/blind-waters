@@ -1,7 +1,7 @@
 import pytest
-from placer import Placer
-from agents import RandomAgent, HuntTargetAgent
-from simulate import play_game
+from blind_waters.placer import Placer
+from blind_waters.agents import RandomAgent, HuntTargetAgent
+from blind_waters.simulate import play_game
 
 AGENTS = [RandomAgent, HuntTargetAgent]
 
