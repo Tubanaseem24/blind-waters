@@ -1,4 +1,4 @@
-from placer import Placer
+from blind_waters.placer import Placer
 
 def valid(layout, p):
     cells = [c for s in layout for c in s]
