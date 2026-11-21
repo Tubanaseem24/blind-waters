@@ -1,6 +1,6 @@
-from placer import Placer
-from agents import RandomAgent, HuntTargetAgent
-from simulate import play_game, average_shots
+from blind_waters.placer import Placer
+from blind_waters.agents import RandomAgent, HuntTargetAgent
+from blind_waters.simulate import play_game, average_shots
 
 
 def test_random_agent_finishes_game():
