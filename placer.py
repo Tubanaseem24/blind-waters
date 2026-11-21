@@ -77,3 +77,15 @@ class Placer:
         if result is None:
             raise ValueError("No valid layout for this board/fleet")
         return [result[i] for i in range(len(self.fleet_spec))]
+
+    def is_fleet_complete(self, layout):
+        """True only if ALL ships are placed, with the right lengths, legally.
+        The game must not start until this is True."""
+        if sorted(len(ship) for ship in layout) != sorted(self.fleet_spec):
+            return False
+        placed = []
+        for ship in layout:
+            if not self.is_consistent(ship, placed):
+                return False
+            placed.append(ship)
+        return True
