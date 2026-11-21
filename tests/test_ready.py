@@ -1,4 +1,4 @@
-from placer import Placer
+from blind_waters.placer import Placer
 
 def test_full_layout_is_complete():
     p = Placer()
