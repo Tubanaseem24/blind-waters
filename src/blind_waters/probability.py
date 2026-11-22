@@ -28,9 +28,7 @@ DEFAULT_FLEET = (3, 3, 2)   # the team's fleet (changed from the proposal's 5 sh
 MAX_SHIPS = 3               # the fast counter handles up to 3 ships
 
 
-# --------------------------------------------------------------------------
 # Fast exact counting (up to 3 ships)
-# --------------------------------------------------------------------------
 @lru_cache(maxsize=None)
 def _tables(size, fleet):
     """Precompute, once per board size and fleet: every position of every ship as
@@ -107,9 +105,7 @@ def count_layouts_fast(size, fleet=DEFAULT_FLEET, hits=(), misses=()):
     return LayoutCounts(int(round(total)), grid)
 
 
-# --------------------------------------------------------------------------
 # Reading the board view
-# --------------------------------------------------------------------------
 def _can_tile(cells, lengths):
     """Can these cells be split exactly into straight ships of the given lengths?"""
     if not cells:
@@ -165,9 +161,7 @@ def belief(view, fleet=DEFAULT_FLEET):
     return count_layouts_fast(len(view), afloat, hits, misses + sunk)
 
 
-# --------------------------------------------------------------------------
 # The agent
-# --------------------------------------------------------------------------
 class ProbabilityAgent:
     """Fires at the unknown cell that appears in the most consistent layouts.
 
