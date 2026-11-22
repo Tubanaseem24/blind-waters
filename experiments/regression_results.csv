@@ -1,0 +1,7 @@
+model,train_r2,test_r2,test_mae_shots
+Linear Regression,0.43,0.181,2.183
+Ridge,0.43,0.182,2.183
+Lasso,0.427,0.204,2.175
+Decision Tree,0.566,0.059,2.36
+Random Forest,0.915,0.071,2.301
+KNN,0.542,0.126,2.313

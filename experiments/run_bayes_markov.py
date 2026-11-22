@@ -1,8 +1,4 @@
 """Labs 8/9: Markov model and Bayesian network for the Hunt-and-Target agent.
-
-Run from the project folder:
-    python experiments/run_bayes_markov.py
-Writes experiments/markov_transitions.csv and experiments/bayes_inference.csv
 """
 import csv
 import sys
@@ -13,6 +9,8 @@ warnings.filterwarnings("ignore", category=FutureWarning)   # pgmpy notice, not 
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+
+from plotting import plt, save_figure   # saves charts (add --show to open them)
 
 from blind_waters import bayes_markov as bm
 
@@ -55,7 +53,26 @@ def main():
         w.writerow(["question", "probability"])
         for question, p in answers.items():
             w.writerow([question, round(p, 4)])
-    print("\nSaved: experiments/markov_transitions.csv, experiments/bayes_inference.csv")
+    # ---- charts ----
+    import seaborn as sns
+    plt.figure(figsize=(4.8, 4))
+    sns.heatmap(P, annot=True, fmt=".3f", cmap="Blues", vmin=0, vmax=1,
+                xticklabels=bm.STATES, yticklabels=bm.STATES)
+    plt.xlabel("next shot"); plt.ylabel("this shot")
+    plt.title("Markov model: HUNT / TARGET")
+    save_figure(out / "markov_transitions.png")
+
+    plt.figure(figsize=(7.5, 4))
+    names = [q for q in answers if q != "P(next to a hit | shot was a hit)"]
+    plt.barh(names, [answers[q] for q in names], color="#4c72b0")
+    plt.gca().invert_yaxis()
+    for i, q in enumerate(names):
+        plt.text(answers[q] + 0.01, i, f"{answers[q]:.2f}", va="center")
+    plt.xlim(0, 0.75); plt.xlabel("probability the shot is a hit")
+    plt.title("Bayesian network: a shot next to a hit is far more likely to hit")
+    save_figure(out / "bayes_probabilities.png")
+
+    print("\nSaved: markov_transitions.csv, bayes_inference.csv and 2 charts")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,7 @@
-
+"""Lab 6: compare Hill Climbing, Beam Search and the Genetic Algorithm.
+Each method runs 5 times; the table shows the average.
+(local_search_comparison.png, local_search_convergence.png)
+"""
 import csv
 import random
 import sys
@@ -6,6 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+
+from plotting import plt, save_figure   # saves charts (add --show to open them)
 
 from blind_waters.local_search import (LayoutProblem, hill_climbing, beam_search,
                                        genetic_algorithm)
@@ -36,6 +41,7 @@ def main():
              round(mean([baseline_train.fitness(l) for l in random_layouts]), 1),
              "", round(mean([validation.fitness(l) for l in random_layouts]), 1)]]
     ga_history = []
+    histories = {}
 
     for name, run in methods:
         trains, evals, vals = [], [], []
@@ -45,8 +51,10 @@ def main():
             trains.append(score)
             evals.append(problem.evaluations)
             vals.append(validation.fitness(best))
-            if name == "Genetic algorithm" and seed == 0:
-                ga_history = history
+            if seed == 0:
+                histories[name] = history
+                if name == "Genetic algorithm":
+                    ga_history = history
         rows.append([name, round(mean(trains), 1), round(mean(evals)), round(mean(vals), 1)])
 
     print()
@@ -64,7 +72,23 @@ def main():
         w = csv.writer(f)
         w.writerow(["generation", "best_fitness"])
         w.writerows(enumerate(ga_history))
-    print("\nSaved: experiments/local_search_results.csv, experiments/ga_history.csv")
+    # ---- charts ----
+    plt.figure(figsize=(7, 4.5))
+    labels = [r[0] for r in rows]
+    plt.barh(labels, [r[3] for r in rows], color=["gray"] + ["#4c72b0"] * (len(rows) - 1))
+    plt.xlim(0, max(r[3] for r in rows) + 5)
+    plt.xlabel("average shots the agent needs on NEW seeds (higher = harder to find)")
+    plt.title("Local search: how well hidden are the layouts?")
+    save_figure(out / "local_search_comparison.png")
+
+    plt.figure(figsize=(7, 4.5))
+    for name, history in histories.items():
+        plt.plot(range(len(history)), history, marker="o", label=name)
+    plt.xlabel("step / generation"); plt.ylabel("best fitness so far (average shots)")
+    plt.title("Convergence of the search methods (first run)"); plt.legend(fontsize=8)
+    save_figure(out / "local_search_convergence.png")
+
+    print("\nSaved: experiments/local_search_results.csv, ga_history.csv and 2 charts")
 
 
 if __name__ == "__main__":
