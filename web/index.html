@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071827">
+  <title>Blind Waters — Naval Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Blind Waters home">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span><strong>BLIND<span>WATERS</span></strong><small>NAVAL INTELLIGENCE SYSTEM</small></span>
+    </a>
+    <div class="top-meta"><span class="live-dot"></span><span>LOCAL COMMAND LINK</span><span class="meta-divider"></span><span id="connection-label">CONNECTING</span></div>
+    <button class="icon-button" id="new-game-top" title="Start a new battle" aria-label="Start a new battle">↻</button>
+  </header>
+
+  <main class="app-shell">
+    <section class="intro-row">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-line"></span> TACTICAL OPERATIONS / 001</div>
+        <h1>THE OCEAN IS<br><em>YOUR BATTLEFIELD.</em></h1>
+        <p class="intro-copy">Track the unknown. Outsmart the opposition. Every shot reveals a little more.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-top"><span>MISSION STATUS</span><span class="status-pill" id="mission-status">STANDBY</span></div>
+        <div class="mission-title" id="mission-title">Awaiting deployment</div>
+        <div class="mission-sub" id="mission-sub">Establish a command link to begin.</div>
+        <button class="primary-button" id="start-button"><span>▶</span> DEPLOY FLEET</button>
+      </div>
+    </section>
+
+    <section class="stats-strip" aria-label="Battle statistics">
+      <div class="stat"><span class="stat-label">YOUR SHOTS</span><strong id="your-shots">00</strong><small>FIRED</small></div>
+      <div class="stat"><span class="stat-label">AI SHOTS</span><strong id="ai-shots">00</strong><small>FIRED</small></div>
+      <div class="stat"><span class="stat-label">ENEMY HITS</span><strong id="enemy-hits">00</strong><small>CONFIRMED</small></div>
+      <div class="stat"><span class="stat-label">YOUR FLEET</span><strong id="fleet-left">05</strong><small>AFLOAT</small></div>
+      <div class="stat stat-wide"><span class="stat-label">ACCURACY</span><strong id="accuracy">—</strong><div class="accuracy-track"><span id="accuracy-bar"></span></div></div>
+    </section>
+
+    <section class="battle-layout">
+      <div class="boards-column">
+        <div class="section-heading"><div><span class="section-index">01 / ENGAGEMENT</span><h2>TACTICAL MAP</h2></div><div class="turn-indicator" id="turn-indicator"><span class="turn-dot"></span> DEPLOY FLEET TO BEGIN</div></div>
+        <div class="boards-grid">
+          <article class="board-panel enemy-panel">
+            <div class="board-heading"><div class="board-icon enemy-icon">⌖</div><div><h3>HOSTILE WATERS</h3><p>ENEMY TERRITORY / TARGET GRID</p></div><span class="board-tag">FIRE ZONE</span></div>
+            <div class="grid-frame"><div class="axis axis-top" id="enemy-cols"></div><div class="axis axis-side" id="enemy-rows"></div><div class="game-grid enemy-grid" id="enemy-grid" role="grid" aria-label="Enemy target grid"></div></div>
+            <div class="board-legend"><span><i class="legend-dot unknown"></i> UNKNOWN</span><span><i class="legend-dot hit"></i> HIT</span><span><i class="legend-dot miss"></i> MISS</span></div>
+          </article>
+          <article class="board-panel own-panel">
+            <div class="board-heading"><div class="board-icon own-icon">⌂</div><div><h3>YOUR FLEET</h3><p>FRIENDLY TERRITORY / DEFENSE GRID</p></div><span class="board-tag friendly-tag">STATUS</span></div>
+            <div class="grid-frame"><div class="axis axis-top" id="own-cols"></div><div class="axis axis-side" id="own-rows"></div><div class="game-grid own-grid" id="own-grid" role="grid" aria-label="Your fleet grid"></div></div>
+            <div class="board-legend"><span><i class="legend-dot ship"></i> SHIP</span><span><i class="legend-dot hit"></i> HIT</span><span><i class="legend-dot miss"></i> MISS</span></div>
+          </article>
+        </div>
+        <div class="instruction-bar"><span class="instruction-icon">◎</span><span id="instruction-text">Deploy your fleet to open the tactical map. Select any unknown enemy square to fire.</span><kbd>10 × 10 GRID</kbd></div>
+      </div>
+
+      <aside class="intel-column">
+        <div class="section-heading intel-heading"><div><span class="section-index">02 / INTELLIGENCE</span><h2>COMMAND CENTER</h2></div></div>
+        <section class="intel-card agent-card">
+          <div class="card-topline"><span>OPPONENT PROFILE</span><span class="mini-live"><i></i> ONLINE</span></div>
+          <div class="agent-identity"><div class="radar-avatar"><div class="radar-ring ring-a"></div><div class="radar-ring ring-b"></div><div class="radar-sweep"></div><span>AI</span></div><div><h3>TACTICAL AGENT</h3><p id="agent-mode">RANDOM SHOOTER / BASELINE</p></div></div>
+          <div class="agent-readout"><span>DECISION ENGINE</span><strong id="agent-engine">RandomShooter</strong></div>
+          <div class="agent-readout"><span>LAST ACTION</span><strong id="last-action">No shots recorded</strong></div>
+        </section>
+        <section class="intel-card analysis-card">
+          <div class="card-topline"><span>PROBABILITY SCAN</span><span class="lock-label">MODULE STATUS</span></div>
+          <div class="scan-visual"><div class="scan-grid"></div><div class="scan-circle scan-circle-one"></div><div class="scan-circle scan-circle-two"></div><div class="scan-crosshair"></div><div class="scan-sweep"></div><span class="scan-coord">SCANNING...</span></div>
+          <h3>THREAT DISTRIBUTION</h3>
+          <p class="module-note">Probability heatmap is not connected yet. It will become available when the ProbabilityAgent implementation is integrated.</p>
+          <div class="module-status"><span class="status-square"></span> AWAITING PROBABILITY MODULE</div>
+        </section>
+        <section class="intel-card log-card">
+          <div class="card-topline"><span>COMMS / BATTLE LOG</span><span id="log-count">00 EVENTS</span></div>
+          <div class="battle-log" id="battle-log"><div class="empty-log">No transmissions yet.<br>Deploy to begin operations.</div></div>
+        </section>
+      </aside>
+    </section>
+    <footer class="footer"><span>BLIND WATERS <b>·</b> AI LAB PROJECT</span><span>HUNT THE UNKNOWN <b>—</b> PROTECT YOUR FLEET</span><span>BUILD 1.0.0</span></footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop hidden" id="result-modal">
+    <div class="result-modal"><div class="result-emblem" id="result-emblem">✦</div><span class="section-index">MISSION CONCLUDED</span><h2 id="result-title">VICTORY</h2><p id="result-copy">The opposing fleet has been neutralized.</p><button class="primary-button" id="play-again">↻ PLAY AGAIN</button></div>
+  </div>
+  <script src="/game.js"></script>
+</body>
+</html>
