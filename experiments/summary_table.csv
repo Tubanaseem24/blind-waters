@@ -1,0 +1,4 @@
+agent,board_size,games,average,median,std_dev,best,worst
+Random,10,200,90.5,92.5,9.1,58,100
+Hunt-and-Target,10,200,53.4,52.5,16.1,19,100
+Probability,10,200,38.9,38.0,11.6,15,68
