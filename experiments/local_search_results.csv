@@ -1,0 +1,6 @@
+method,search_shots,layouts_tried,new_seed_shots
+random layouts (baseline),55.3,,56.1
+Hill climbing (simple),66.7,37,59.3
+Hill climbing (steepest),69.2,58,59.0
+Beam search (k=5),76.4,304,65.7
+Genetic algorithm,72.0,68,65.5

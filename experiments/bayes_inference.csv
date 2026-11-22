@@ -1,0 +1,7 @@
+question,probability
+P(hit),0.1513
+P(hit | next to a hit),0.5082
+P(hit | not next to a hit),0.0682
+"P(hit | next to a hit, on edge)",0.5412
+"P(hit | not next to a hit, on edge)",0.0512
+P(next to a hit | shot was a hit),0.6346
